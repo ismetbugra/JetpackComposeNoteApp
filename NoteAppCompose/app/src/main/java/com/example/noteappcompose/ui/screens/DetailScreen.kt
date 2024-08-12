@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -70,6 +72,10 @@ fun DetailScreen(
           mutableStateOf(false)
      }
 
+     var favoriteState by remember {
+          mutableStateOf(if (args.note_favorites==0) false else true)
+     }
+
      val context = LocalContext.current
 
      Box(modifier = Modifier
@@ -103,6 +109,25 @@ fun DetailScreen(
                          }){
                               Icon(imageVector = Icons.Default.Delete, contentDescription = "")
                          }
+
+                         IconButton(onClick = {
+                              favoriteState=!favoriteState
+                              if (favoriteState){
+                                   val selectedNote= Note(args.id,editedTitle,editedDetail,1,editedDate,editedTime)
+                                   viewModel.updateNote(selectedNote)
+                              }else{
+                                   val unselectedNote= Note(args.id,editedTitle,editedDetail,0,editedDate,editedTime)
+                                   viewModel.updateNote(unselectedNote)
+                              }
+                         }) {
+                              Icon(imageVector =if (favoriteState){
+                                   Icons.Filled.Favorite
+                              }else{
+                                   Icons.Rounded.FavoriteBorder
+                                   }, contentDescription ="")
+                         }
+
+
                     }
 
                }
