@@ -82,6 +82,8 @@ fun DetailScreen(
           .fillMaxSize()
           .padding(paddingValues)) {
           Column(modifier = Modifier.fillMaxSize()) {
+
+               // toolbar custom
                Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
@@ -110,6 +112,7 @@ fun DetailScreen(
                               Icon(imageVector = Icons.Default.Delete, contentDescription = "")
                          }
 
+                         // fav button ayarları
                          IconButton(onClick = {
                               favoriteState=!favoriteState
                               if (favoriteState){

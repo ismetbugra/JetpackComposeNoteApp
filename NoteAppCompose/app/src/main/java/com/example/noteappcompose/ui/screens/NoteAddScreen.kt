@@ -118,20 +118,15 @@ fun NoteAddScreen(navController: NavController,paddingValues: PaddingValues,
 
     Box(modifier = Modifier
         .fillMaxSize()
+        .padding(paddingValues)
         ) {
-        Scaffold(modifier = Modifier.padding(paddingValues),
-            /*topBar = {
-                TopAppBar(title = { Text(text = "Add") })
-            }*/
-        ) {
+
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
                 ) {
 
                 Column(modifier = Modifier
                     .fillMaxSize()
-                    //.verticalScroll(rememberScrollState()) hata veriyor
                     ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly) {
@@ -178,14 +173,14 @@ fun NoteAddScreen(navController: NavController,paddingValues: PaddingValues,
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Row(modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        //horizontalArrangement = Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                         ) {
                         IconButton(onClick = { showDatePicker=!showDatePicker }) {
                             Icon(imageVector = Icons.Default.DateRange, contentDescription = "")
                         }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(text = "Select a date of your note:", fontSize = 15.sp, )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Note date:", fontSize = 15.sp, )
                         Spacer(modifier = Modifier.width(16.dp))
                         Text(text = dateResult, fontSize = 15.sp, )
 
@@ -193,14 +188,14 @@ fun NoteAddScreen(navController: NavController,paddingValues: PaddingValues,
                     }
 
                     Row(modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        //horizontalArrangement = Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         IconButton(onClick = { showTimePicker=!showTimePicker }) {
                             Icon(painter = painterResource(id = R.drawable.time_icon), contentDescription ="" )
                         }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(text = "Select a time of your note:", fontSize = 15.sp, )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Note time:", fontSize = 15.sp, )
                         Spacer(modifier = Modifier.width(16.dp))
                         Text(text = timeResult, fontSize = 15.sp, )
 
@@ -291,12 +286,13 @@ fun NoteAddScreen(navController: NavController,paddingValues: PaddingValues,
                             Toast.makeText(context,"Enter necessery fields",Toast.LENGTH_LONG).show()
                         }
 
-                    }) {
+                    }, colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
+                        , modifier = Modifier.padding(16.dp)) {
                         Text(text = "Add Note")
                     }
                 }
             }
-        }
+
     }
 
 

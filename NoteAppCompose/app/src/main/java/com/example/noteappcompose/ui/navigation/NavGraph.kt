@@ -23,7 +23,7 @@ fun NavGraph(navController: NavHostController,paddingValues: PaddingValues){
         }
 
         composable<Destinations.Favorites> {
-            FavoritesScreen(paddingValues = paddingValues)
+            FavoritesScreen(paddingValues = paddingValues,navController)
         }
 
         composable<Destinations.Detail> {

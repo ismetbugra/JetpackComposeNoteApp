@@ -100,11 +100,11 @@ fun NoteListScreen(navController: NavController
 
             //containerColor = Color.Red
             ,
-            topBar = {
+            /*topBar = {
                 TopAppBar(title = {
-                    Text(text = "My Notes")
+                    Text(text = "My Notes", fontWeight = FontWeight.W200)
                 })
-            },
+            },*/
             floatingActionButton = {
 
                 FloatingActionButton(onClick = {
@@ -123,13 +123,22 @@ fun NoteListScreen(navController: NavController
 
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                //.padding(it)
                 //.padding(it) // buraya paddding verince bottomnav üstünde boşluk olusuyor
             ) {
 
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Row(modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text(text = "My Notes", fontWeight = FontWeight.W200, fontSize = 25.sp)
+                    }
+                    NotesList(navController = navController)
+                }
 
 
-                NotesList(navController = navController)
+
 
             }
         }
@@ -194,7 +203,7 @@ fun NoteRow(navController: NavController,note: Note){
 
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(8.dp)
+        .padding(16.dp)
         .clickable {
             navController.navigate(
                 Destinations.Detail(
@@ -219,11 +228,11 @@ fun NoteRow(navController: NavController,note: Note){
             horizontalAlignment = Alignment.CenterHorizontally) {
             
             Text(text = note.note_title, fontSize = 25.sp,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold,modifier = Modifier.padding(8.dp))
             
             Spacer(modifier = Modifier.height(8.dp))
             
-            Text(text = note.note_detail)
+            Text(text = note.note_detail, modifier = Modifier.padding(8.dp))
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(modifier = Modifier

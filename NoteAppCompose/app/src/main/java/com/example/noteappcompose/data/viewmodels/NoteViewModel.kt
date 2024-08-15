@@ -22,9 +22,12 @@ class NoteViewModel @Inject constructor(var nrepo:NoteRepository) :ViewModel() {
     private val _list = MutableStateFlow<List<Note>>(listOf())
     var list = _list.asStateFlow()
 
+    var favoritesList= mutableStateOf<List<Note>>(listOf())
+
 
     init {
         getAllNotes()
+        getFavorites()
     }
 
     fun getAllNotes(){
@@ -51,6 +54,12 @@ class NoteViewModel @Inject constructor(var nrepo:NoteRepository) :ViewModel() {
     fun deleteNote(note: Note){
         CoroutineScope(Dispatchers.Main).launch {
             nrepo.deleteNote(note)
+        }
+    }
+
+    fun getFavorites(){
+        CoroutineScope(Dispatchers.IO).launch {
+            favoritesList.value=nrepo.getFavorites()
         }
     }
 }

@@ -26,8 +26,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -44,6 +46,12 @@ import com.example.noteappcompose.ui.navigation.items
 import com.example.noteappcompose.ui.screens.NoteListScreen
 import com.example.noteappcompose.ui.theme.NoteAppComposeTheme
 import com.example.noteappcompose.ui.theme.colorBlue
+import com.example.noteappcompose.ui.theme.colorGreen
+import com.example.noteappcompose.ui.theme.colorLightBlue
+import com.example.noteappcompose.ui.theme.colorPink
+import com.example.noteappcompose.ui.theme.colorPurple
+import com.example.noteappcompose.ui.theme.colorRed
+import com.example.noteappcompose.ui.theme.colorYellow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,6 +67,20 @@ class MainActivity : ComponentActivity() {
                 var navList=items.list
                 var bottomNavSelectedIndex by rememberSaveable {
                     mutableStateOf(0)
+                }
+
+                // Renklerin listesini oluşturun
+                val colorList = listOf(
+                    colorRed, colorBlue, colorGreen, colorPurple, colorYellow, colorPink, colorLightBlue
+                )
+
+                // Renkleri rastgele seçin
+                val colorState = remember { mutableStateOf(colorList.random()) }
+
+                // Ekran geri döndüğünde rengi güncellemek için LaunchedEffect kullanın
+                LaunchedEffect(key1 = Unit) {
+                    // Renkleri rastgele seçin
+                    colorState.value = colorList.random()
                 }
 
 
@@ -80,6 +102,7 @@ class MainActivity : ComponentActivity() {
                                     onClick = {
                                         bottomNavSelectedIndex = index
                                         navController.navigate(bottomNavItem.route)
+                                        colorState.value = colorList.random()
                                     },
                                     icon = {
                                         Icon(
@@ -90,7 +113,7 @@ class MainActivity : ComponentActivity() {
                                             }, contentDescription = ""
                                         )
                                     },
-                                    colors = NavigationBarItemDefaults.colors(indicatorColor = colorBlue)
+                                    colors = NavigationBarItemDefaults.colors(indicatorColor = colorState.value)
                                 )
                             }
                         }

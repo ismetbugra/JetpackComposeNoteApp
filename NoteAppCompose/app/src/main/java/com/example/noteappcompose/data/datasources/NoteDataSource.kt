@@ -34,6 +34,11 @@ class NoteDataSource @Inject constructor(var ndao:NotesDao) {
         withContext(Dispatchers.IO){
             ndao.deleteNote(note)
         }
-
     }
+
+    suspend fun getFavorites():List<Note> =
+        withContext(Dispatchers.IO){
+            return@withContext ndao.getFavorites()
+        }
+
 }
